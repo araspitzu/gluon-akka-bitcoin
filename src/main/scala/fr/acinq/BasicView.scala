@@ -16,6 +16,7 @@ import com.gluonhq.charm.down.plugins.StorageService
 import com.gluonhq.charm.glisten.control.AppBar
 import com.gluonhq.charm.glisten.mvc.View
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon
+import fr.acinq.bitcoin.Crypto.PublicKey
 import utils.Person
 
 import scala.compat.java8.OptionConverters._
@@ -39,8 +40,9 @@ class BasicView(infoActor: ActorRef) extends View {
     }
 
 
-    private val DB_NAME: String = "sample.db"
+    implicit val timeout = Timeout(10 seconds) // for akka ask
 
+    private val DB_NAME: String = "sample.db"
     private val listView = new ListView[Person]
     private val status = new ListView[String]
 
@@ -77,6 +79,7 @@ class BasicView(infoActor: ActorRef) extends View {
         appBar.setTitleText("SQLite")
         appBar.getActionItems.addAll(
 
+            LOCK.button(makePubKey()),
             MOVIE_CREATION.button(getInfo()),
             CREATE_NEW_FOLDER.button(createDB()),
             ATTACH_FILE.button(readDB()),
@@ -91,8 +94,13 @@ class BasicView(infoActor: ActorRef) extends View {
         status.getItems.add(text)
     }
 
+    private def makePubKey(): Unit = {
+        (infoActor ? 'makePubKey).mapTo[PublicKey].map { key =>
+            status.getItems.add(key.toString())
+        }
+    }
+
     private def getInfo(): Unit = {
-        implicit val timeout = Timeout(10 seconds)
         (infoActor ? 'info).mapTo[String].map { resp =>
            status.getItems.add(resp)
         }
