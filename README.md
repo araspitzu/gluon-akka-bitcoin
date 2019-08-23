@@ -1,5 +1,5 @@
 
-GluonSQLite
+gluon-akka-bitcoin
 ===========
 
 A JavaFX Application that shows how to embed an SQLite database on your project.
@@ -21,11 +21,3 @@ To execute the sample, do as follows:
 > Connect your Android device and run `./gradlew androidInstall`
 * iOS
 > Connect your iOS device and run `./gradlew launchIOSDevice`
-* Embedded
-> Configure your Raspberry Pi, add the settings to the `build.gradle` script and run `./gradlew runEmbedded`
-
-Documentation
--------------
-
-Read how to create this sample step by step [here](http://docs.gluonhq.com/samples/gluonsqlite/)
-

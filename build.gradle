@@ -7,10 +7,6 @@ buildscript {
     }
 }
 
-plugins {
-    id "com.github.hierynomus.license" version "0.13.1"
-}
-
 apply plugin: 'scala'
 apply plugin: 'org.javafxports.jfxmobile'
 
@@ -21,7 +17,7 @@ repositories {
     }
 }
 
-mainClassName = 'com.gluonhq.sqlite.GluonSQLite'
+mainClassName = 'fr.acinq.AppEntryPoint'
 
 dependencies {
     compile 'com.typesafe.akka:akka-actor_2.11:2.5.25'
@@ -66,12 +62,5 @@ jfxmobile {
             'org.glassfish.json.**.*',
             'SQLite.**.*'
         ]
-    }
-}
-
-license {
-    skipExistingHeaders
-    mapping {
-        fxml = 'XML_STYLE'
     }
 }
