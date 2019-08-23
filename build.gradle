@@ -21,7 +21,7 @@ repositories {
     }
 }
 
-mainClassName = 'fr.acinq.gluon.GluonSQLite'
+mainClassName = 'com.gluonhq.sqlite.GluonSQLite'
 
 dependencies {
     compile 'com.typesafe.akka:akka-actor_2.11:2.5.25'
@@ -58,13 +58,13 @@ jfxmobile {
     ios {
         infoPList = file('src/ios/Default-Info.plist')
         forceLinkClasses = [
-                'com.gluonhq.**.*',
-                'io.datafx.**.*',
-                'javax.annotations.**.*',
-                'javax.inject.**.*',
-                'javax.json.**.*',
-                'org.glassfish.json.**.*',
-                'SQLite.**.*'
+            'com.gluonhq.**.*',
+            'io.datafx.**.*',
+            'javax.annotations.**.*',
+            'javax.inject.**.*',
+            'javax.json.**.*',
+            'org.glassfish.json.**.*',
+            'SQLite.**.*'
         ]
     }
 }
