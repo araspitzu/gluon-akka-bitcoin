@@ -5,6 +5,9 @@ import java.io.{File, IOException}
 import java.sql._
 import java.util
 
+import akka.actor.{ActorRef, ActorSystem}
+import akka.pattern._
+import akka.util.Timeout
 import javafx.geometry.{Insets, Pos}
 import javafx.scene.control.{Label, ListCell, ListView}
 import javafx.scene.layout.VBox
@@ -16,8 +19,10 @@ import com.gluonhq.charm.glisten.visual.MaterialDesignIcon
 import utils.Person
 
 import scala.compat.java8.OptionConverters._
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class BasicView() extends View {
+class BasicView(infoActor: ActorRef) extends View {
 
     import Platform._
 
@@ -71,6 +76,8 @@ class BasicView() extends View {
         appBar.setNavIcon(PERSON_PIN.button)
         appBar.setTitleText("SQLite")
         appBar.getActionItems.addAll(
+
+            MOVIE_CREATION.button(getInfo()),
             CREATE_NEW_FOLDER.button(createDB()),
             ATTACH_FILE.button(readDB()),
             REMOVE.button {
@@ -82,6 +89,13 @@ class BasicView() extends View {
 
     private def setStatus( text: String ): Unit = {
         status.getItems.add(text)
+    }
+
+    private def getInfo(): Unit = {
+        implicit val timeout = Timeout(10 seconds)
+        (infoActor ? 'info).mapTo[String].map { resp =>
+           status.getItems.add(resp)
+        }
     }
 
     private def createDB(): Unit = {

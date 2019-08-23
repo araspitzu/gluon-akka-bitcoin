@@ -1,1 +1,2 @@
 rootProject.name = 'gluon-akka-bitcoin'
+org.gradle.jvmargs='-Xmx2048M'
