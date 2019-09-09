@@ -1,26 +1,16 @@
 
-gluon-akka-bitcoin
+gluon-mobile-akka
 ===========
 
-A JavaFX Application that shows how to embed an SQLite database on your project with akka.
+A JavaFX Application that shows how to embed an akka in gluon-mobile.
 
 You must use oracle JDK8 to run this application, if you're using openjdk you will need to specify the 
 location of the javafx artifacts on the classpath.
 
-It uses the proper SQLite dependency and driver for each platform, and uses Gluon Charm Down to 
-access the private storage location on them
+Akka 2.5 is used and a few `PingerActor`s are created, this actor simply replies Ping/Pong to a random
+pinger in the list (currently there are 3 pingers)
 
-Akka 2.4 is used and a `InfoActor` is created, this actor replies with a serialized (printed) version
-of its configuration through which is possible to read various system properties and versioning.
-
-Bitcoin-lib 0.13 is used but currently fails to load the libsecp256k1 native library.
-
-The app provides a few operations available from the navbar buttons, starting from right:
-- `minus sign button`: cleans the output
-- `clipper button`: print info about the SQLITE DB creation and population
-- `plus-folder button`: insert a few persons in the db and populates view
-- `strange-movie button`: ask the `InfoActor` about the actor system config
-- `lock button`: asks the `InfoActor` to generate a new public key (not working)
+To start the ping/pong between the actors click the play button on the top left corner of the navbar.
 
 Instructions
 ------------
@@ -32,7 +22,3 @@ To execute the sample, do as follows:
 > Connect your Android device and run `./gradlew androidInstall`
 * iOS
 > Connect your iOS device and run `./gradlew launchIOSDevice`
-
-### Gotchas
-If the build fails with `GC overhead limit exceeded` during task `dex` you can run:
-`./gradlew clean && ./gradlew androidInstall` 
